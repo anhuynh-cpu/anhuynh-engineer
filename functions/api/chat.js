@@ -1,21 +1,40 @@
 export async function onRequest(context) {
   const { request, env } = context;
 
-  // Chỉ chấp nhận method POST
+  // Cấu hình CORS để cho phép gọi từ GitHub Pages và Localhost
+  const allowedOrigins = [
+    "https://anhuynh-cpu.github.io",
+    "http://localhost:8081",
+    "http://127.0.0.1:8081"
+  ];
+  const origin = request.headers.get("Origin");
+  const corsHeaders = {
+    "Access-Control-Allow-Origin": allowedOrigins.includes(origin) ? origin : "https://anhuynh-cpu.github.io",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
+  // Xử lý preflight request (OPTIONS) từ trình duyệt
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders
+    });
+  }
+
   if (request.method !== "POST") {
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
       status: 405,
-      headers: { "Content-Type": "application/json" }
+      headers: { ...corsHeaders, "Content-Type": "application/json" }
     });
   }
 
   try {
-    // Đọc API Key từ cài đặt Environment Variables của Cloudflare Pages
     const apiKey = env.GEMINI_API_KEY;
     if (!apiKey) {
       return new Response(
-        JSON.stringify({ error: "GEMINI_API_KEY is not configured on Cloudflare Pages Dashboard." }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
+        JSON.stringify({ error: "GEMINI_API_KEY is not configured." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -34,13 +53,13 @@ export async function onRequest(context) {
 
     return new Response(JSON.stringify(responseData), {
       status: response.status,
-      headers: { "Content-Type": "application/json" }
+      headers: { ...corsHeaders, "Content-Type": "application/json" }
     });
 
   } catch (err) {
     return new Response(JSON.stringify({ error: err.message }), {
       status: 500,
-      headers: { "Content-Type": "application/json" }
+      headers: { ...corsHeaders, "Content-Type": "application/json" }
     });
   }
 }

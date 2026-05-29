@@ -11,7 +11,7 @@
  * Biến dưới đây chỉ để TEST. Thay bằng proxy URL khi đưa lên production.
  */
 // Endpoint trỏ đến Cloudflare Pages Function Proxy để bảo mật API Key
-const AI_ENDPOINT = "/api/chat";
+const AI_ENDPOINT = "https://anhuynh-engineer.pages.dev/api/chat";
 
 /* ─── 1. Nav scrolled toggle ─── */
 const nav = document.getElementById('nav');
