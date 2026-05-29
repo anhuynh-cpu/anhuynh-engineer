@@ -10,9 +10,8 @@
  *
  * Biến dưới đây chỉ để TEST. Thay bằng proxy URL khi đưa lên production.
  */
-const AI_API_KEY = "PASTE_YOUR_API_KEY_HERE";
-const AI_MODEL = "gemini-2.5-flash";
-const AI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL}:generateContent?key=${AI_API_KEY}`;
+// Endpoint trỏ đến Cloudflare Pages Function Proxy để bảo mật API Key
+const AI_ENDPOINT = "/api/chat";
 
 /* ─── 1. Nav scrolled toggle ─── */
 const nav = document.getElementById('nav');
@@ -217,13 +216,6 @@ async function callGeminiAPI() {
   const typingBubble = appendBubble('Đang suy nghĩ...', 'bot typing');
 
   try {
-    // Kiểm tra API key
-    if (!AI_API_KEY || AI_API_KEY === 'PASTE_KEY_HERE') {
-      typingBubble.textContent = '⚠️ Chưa cấu hình API key. Vui lòng liên hệ Zalo 0985 905 443 để được tư vấn trực tiếp!';
-      typingBubble.classList.remove('typing');
-      return;
-    }
-
     const response = await fetch(AI_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
