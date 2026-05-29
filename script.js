@@ -1,9 +1,27 @@
+/**
+ * ⚠️ CẢNH BÁO BẢO MẬT — ĐỌC KỸ TRƯỚC KHI DEPLOY:
+ * Đặt API key trực tiếp trong code client-side (JS trên trình duyệt) sẽ BỊ LỘ
+ * cho bất kỳ ai xem source code trang web.
+ *
+ * GIẢI PHÁP AN TOÀN HƠN:
+ * 1. Dùng Cloudflare Worker làm proxy — gọi API từ worker, key lưu trong env vars
+ * 2. Dùng Vercel/Netlify serverless function
+ * 3. Dùng backend riêng (Node.js, PHP) làm trung gian
+ *
+ * Biến dưới đây chỉ để TEST. Thay bằng proxy URL khi đưa lên production.
+ */
+const AI_API_KEY = "PASTE_YOUR_API_KEY_HERE";
+const AI_MODEL = "gemini-2.5-flash";
+const AI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL}:generateContent?key=${AI_API_KEY}`;
+
 /* ─── 1. Nav scrolled toggle ─── */
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 40) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
+if (nav) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+}
 
 /* ─── 2. Mobile menu toggle ─── */
 const menuToggle = document.querySelector('.menu-toggle');
@@ -107,8 +125,10 @@ function observeGroup(selector) {
   });
 }
 observeGroup('.services-grid');
-observeGroup('.tech-grid');
 observeGroup('.projects-list');
+observeGroup('.coming-soon-grid');
+observeGroup('.feature-grid');
+observeGroup('.showcase-grid');
 
 /* ─── 8. Smooth scroll cho a[href^="#"] ─── */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -123,3 +143,112 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+/* ═══════════════════════════════════════════════════
+   9. CHAT WIDGET — Tư vấn AI trực tiếp (Gemini 2.5 Flash)
+   ═══════════════════════════════════════════════════ */
+const chatWidget = document.getElementById('chatWidget');
+const chatToggle = document.getElementById('chatToggle');
+const chatClose = document.getElementById('chatClose');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+// Lịch sử hội thoại gửi cho Gemini
+let chatHistory = [];
+
+// System prompt cho AI
+const SYSTEM_PROMPT = `Bạn là trợ lý tư vấn AI của Thiên Ân (Adam) — Dev Design Engineer tại TP. Hồ Chí Minh.
+Nhiệm vụ: Giúp khách hàng tiềm năng tìm hiểu về dịch vụ và tư vấn sơ bộ.
+Dịch vụ chính: Website & Landing Page, Blog & Content Site, Web Application, Mobile App, Domain/Hosting/VPS setup, Vibe Coding & AI Build.
+Sản phẩm đã làm: ThinkNote (ứng dụng ghi chú AI), ByteOne (website công ty).
+Liên hệ trực tiếp: Zalo/SĐT 0985905443.
+Quy tắc: Trả lời bằng tiếng Việt, ngắn gọn (2-4 câu). Thân thiện, chuyên nghiệp. Nếu khách muốn báo giá chi tiết, hướng dẫn liên hệ Zalo/SĐT. Không bịa thông tin.`;
+
+if (chatToggle && chatWidget) {
+  // Mở/đóng chat widget
+  chatToggle.addEventListener('click', () => {
+    chatWidget.classList.toggle('open');
+    // Ẩn badge sau khi mở lần đầu
+    const badge = chatToggle.querySelector('.chat-toggle-badge');
+    if (badge) badge.style.display = 'none';
+    if (chatWidget.classList.contains('open') && chatInput) chatInput.focus();
+  });
+  if (chatClose) {
+    chatClose.addEventListener('click', () => chatWidget.classList.remove('open'));
+  }
+
+  // Gửi tin nhắn
+  function sendMessage() {
+    if (!chatInput) return;
+    const text = chatInput.value.trim();
+    if (!text) return;
+    // Hiển thị tin nhắn user
+    appendBubble(text, 'user');
+    chatInput.value = '';
+    // Thêm vào history
+    chatHistory.push({ role: 'user', parts: [{ text }] });
+    // Gọi AI
+    callGeminiAPI();
+  }
+
+  if (chatSend) chatSend.addEventListener('click', sendMessage);
+  if (chatInput) {
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    });
+  }
+}
+
+// Thêm bong bóng tin nhắn vào khung chat
+function appendBubble(text, type) {
+  if (!chatMessages) return;
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble ${type}`;
+  bubble.textContent = text;
+  chatMessages.appendChild(bubble);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return bubble;
+}
+
+// Gọi Gemini API
+async function callGeminiAPI() {
+  // Hiển thị trạng thái đang gõ
+  const typingBubble = appendBubble('Đang suy nghĩ...', 'bot typing');
+
+  try {
+    // Kiểm tra API key
+    if (!AI_API_KEY || AI_API_KEY === 'PASTE_KEY_HERE') {
+      typingBubble.textContent = '⚠️ Chưa cấu hình API key. Vui lòng liên hệ Zalo 0985 905 443 để được tư vấn trực tiếp!';
+      typingBubble.classList.remove('typing');
+      return;
+    }
+
+    const response = await fetch(AI_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: chatHistory,
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        generationConfig: { temperature: 0.7, maxOutputTokens: 500 }
+      })
+    });
+
+    if (!response.ok) throw new Error(`API lỗi: ${response.status}`);
+    const data = await response.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Xin lỗi, tôi không thể trả lời lúc này.';
+
+    // Cập nhật bubble
+    typingBubble.textContent = reply;
+    typingBubble.classList.remove('typing');
+    // Thêm vào history
+    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+
+  } catch (err) {
+    console.error('Chat AI error:', err);
+    typingBubble.textContent = '⚠️ Không thể kết nối AI. Vui lòng thử lại hoặc nhắn Zalo 0985 905 443!';
+    typingBubble.classList.remove('typing');
+  }
+
+  if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+}
