@@ -38,7 +38,7 @@ export async function onRequest(context) {
       );
     }
 
-    const AI_MODEL = "gemini-1.5-flash";
+    const AI_MODEL = "gemini-3.1-flash-lite";
     const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL}:generateContent?key=${apiKey}`;
 
     const body = await request.json();
