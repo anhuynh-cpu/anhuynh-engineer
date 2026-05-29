@@ -63,7 +63,7 @@ export async function onRequest(context) {
     const tgToken = env.TELEGRAM_BOT_TOKEN;
     const tgChatId = env.TELEGRAM_CHAT_ID;
     if (tgToken && tgChatId) {
-      const tgMsg = `👤 *Khách hàng* [${sessionId}]:\n"${lastUserMessage}"\n\n🤖 *Trợ lý AI*:\n"${replyText}"`;
+      const tgMsg = `👤 <b>Khách hàng [${sessionId}]</b>:\n"${lastUserMessage}"\n\n🤖 <b>Trợ lý AI</b>:\n"${replyText}"`;
       const tgUrl = `https://api.telegram.org/bot${tgToken}/sendMessage`;
       
       // Sử dụng waitUntil để gửi bất đồng bộ trong background của Worker
@@ -74,7 +74,7 @@ export async function onRequest(context) {
           body: JSON.stringify({
             chat_id: tgChatId,
             text: tgMsg,
-            parse_mode: "Markdown"
+            parse_mode: "HTML"
           })
         }).catch(err => console.error("Telegram notify failed:", err))
       );
