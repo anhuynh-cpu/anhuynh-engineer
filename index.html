@@ -1,0 +1,828 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thiên Ân (Adam) — Dev Design Engineer</title>
+<meta name="description" content="Thiên Ân (Adam) — Dev Design Engineer tại TP. Hồ Chí Minh. Thiết kế và xây dựng website, blog, webapp, mobile app — từ ý tưởng đến deploy." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Global SVG gradient defs for floating shapes -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="shape-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2D6B" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FF9F6E" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="shape-grad-soft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2D6B" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#FF9F6E" stop-opacity="0.2"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">A</div>
+      <span class="logo-text">Thiên Ân</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">Về tôi</a></li>
+      <li><a href="#services">Dịch vụ</a></li>
+      <li><a href="#skills">Kỹ năng</a></li>
+      <li><a href="#projects">Dự án</a></li>
+      <li><a href="#experience">Hành trình</a></li>
+      <li><a href="#contact" class="nav-cta">Liên hệ</a></li>
+    </ul>
+    <button class="menu-toggle" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav-overlay" id="mobileNav">
+  <ul class="mobile-nav-list">
+    <li><a href="#about">Về tôi</a></li>
+    <li><a href="#services">Dịch vụ</a></li>
+    <li><a href="#skills">Kỹ năng</a></li>
+    <li><a href="#projects">Dự án</a></li>
+    <li><a href="#experience">Hành trình</a></li>
+    <li><a href="#contact" class="mobile-cta">Liên hệ</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Animated light beams sweeping down -->
+  <div class="light-lines">
+    <div class="beam beam-1"></div>
+    <div class="beam beam-2"></div>
+    <div class="beam beam-3"></div>
+    <div class="beam beam-4"></div>
+    <div class="beam beam-5"></div>
+  </div>
+
+  <!-- Antigravity 3D floating shapes -->
+  <div class="gravity-scene" id="gravityScene">
+    <div class="scene-inner" id="sceneInner">
+      <div class="float-shape shape-hex-lg">
+        <svg viewBox="0 0 100 100">
+          <path d="M50 6 L88 28 L88 72 L50 94 L12 72 L12 28 Z" fill="none" stroke="url(#shape-grad)" stroke-width="1.2"/>
+          <path d="M50 18 L78 34 L78 66 L50 82 L22 66 L22 34 Z" fill="none" stroke="url(#shape-grad-soft)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="float-shape shape-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="url(#shape-grad)" stroke-width="0.8"/>
+          <circle cx="50" cy="50" r="38" fill="none" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="url(#shape-grad-soft)" stroke-width="0.4"/>
+          <circle cx="50" cy="4" r="2" fill="#FF2D6B"/>
+          <circle cx="96" cy="50" r="1.5" fill="#FF9F6E"/>
+        </svg>
+      </div>
+      <div class="float-shape shape-bracket">
+        <svg viewBox="0 0 100 100">
+          <path d="M38 30 L20 50 L38 70" stroke="url(#shape-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M62 30 L80 50 L62 70" stroke="url(#shape-grad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="55" y1="22" x2="45" y2="78" stroke="url(#shape-grad-soft)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="float-shape shape-hex-sm">
+        <svg viewBox="0 0 100 100">
+          <path d="M50 6 L88 28 L88 72 L50 94 L12 72 L12 28 Z" fill="url(#shape-grad-soft)" stroke="url(#shape-grad)" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="float-shape shape-nodes">
+        <svg viewBox="0 0 100 100">
+          <line x1="25" y1="25" x2="75" y2="25" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <line x1="25" y1="25" x2="50" y2="65" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <line x1="75" y1="25" x2="50" y2="65" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <line x1="25" y1="25" x2="25" y2="75" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <line x1="75" y1="25" x2="75" y2="75" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <line x1="25" y1="75" x2="75" y2="75" stroke="url(#shape-grad-soft)" stroke-width="0.6"/>
+          <circle cx="25" cy="25" r="3" fill="#FF2D6B"/>
+          <circle cx="75" cy="25" r="3" fill="#FF9F6E"/>
+          <circle cx="50" cy="65" r="3" fill="#FF2D6B"/>
+          <circle cx="25" cy="75" r="2.5" fill="#FF9F6E"/>
+          <circle cx="75" cy="75" r="2.5" fill="#FF2D6B"/>
+        </svg>
+      </div>
+      <div class="float-shape shape-cube">
+        <svg viewBox="0 0 100 100">
+          <path d="M20 30 L50 15 L80 30 L80 70 L50 85 L20 70 Z" fill="none" stroke="url(#shape-grad)" stroke-width="1.2"/>
+          <path d="M20 30 L50 45 L80 30 M50 45 L50 85" stroke="url(#shape-grad-soft)" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rising particles (zero-g) -->
+  <div class="particles" id="particles"></div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span>Đang nhận dự án / v2026</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line"><span>Xin chào,</span></span>
+        <span class="line"><span>tôi là Adam —</span></span>
+        <span class="line"><span class="gradient-text">Dev Design Engineer.</span></span>
+      </h1>
+
+      <p class="hero-sub">
+        Tôi là <strong>Thiên Ân</strong> (Adam) — một dev biết design và một designer biết code. Tôi thiết kế và xây dựng website, blog, webapp, mobile app — từ ý tưởng đến deploy trên hosting, domain hay VPS riêng.
+      </p>
+
+      <div class="hero-meta">
+        <div class="meta-item">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>TP. Hồ Chí Minh, VN</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Dev + Design + Vibe Coding</span>
+        </div>
+        <div class="meta-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Bàn giao đúng deadline</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">
+          Xem dự án của tôi
+          <span class="arrow">→</span>
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          Bắt đầu cùng tôi
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-avatar">
+      <div class="avatar-card">
+        <div class="avatar-placeholder">
+          <!-- Thay span dưới đây bằng <img src="ảnh-của-bạn.jpg" alt="Thiên Ân" style="width:100%;height:100%;object-fit:cover" /> -->
+          <span class="initials">A</span>
+        </div>
+        <div class="avatar-tag">
+          <div class="status">
+            <span class="status-dot"></span>
+            <span>Đang nhận dự án</span>
+          </div>
+          <div class="role">DEV · DESIGN</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">/ Về tôi</div>
+        <h2 class="section-title">Một người đứng giữa hai thế giới: code &amp; design.</h2>
+      </div>
+      <p class="section-desc">
+        Tôi không chọn phe — tôi chọn làm tốt cả hai. Mỗi dòng code là một quyết định thiết kế, và mỗi pixel đều có lý do tồn tại.
+      </p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Tôi là <span class="highlight">Thiên Ân</span>, mọi người hay gọi là <span class="highlight">Adam</span>. Tôi làm việc ở vị trí giao thoa giữa developer và designer — nơi UI/UX không chỉ đẹp mà còn vận hành mượt, và code không chỉ chạy mà còn có thẩm mỹ riêng.
+        </p>
+        <p>
+          Công việc của tôi bao gồm thiết kế và phát triển <span class="highlight">website</span>, <span class="highlight">blog</span>, <span class="highlight">webapp</span> và <span class="highlight">mobile app</span>. Tôi quen với cả WordPress lẫn vibe coding hiện đại, biết cách dựng hệ thống từ A đến Z trên hosting chia sẻ, domain riêng hay VPS tự quản lý.
+        </p>
+        <p>
+          Tôi tin rằng sản phẩm tốt không nằm ở việc bạn dùng công nghệ gì — mà ở việc bạn hiểu người dùng đến đâu. Đó là lý do tôi luôn bắt đầu mọi dự án bằng câu hỏi: <em>"Người dùng cần gì?"</em>, không phải <em>"Mình muốn dùng framework nào?"</em>.
+        </p>
+      </div>
+
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="num">30<span class="plus">+</span></div>
+          <div class="label">Dự án đã làm</div>
+        </div>
+        <div class="about-stat">
+          <div class="num">20<span class="plus">+</span></div>
+          <div class="label">Khách hài lòng</div>
+        </div>
+        <div class="about-stat">
+          <div class="num">3<span class="plus">+</span></div>
+          <div class="label">Năm kinh nghiệm</div>
+        </div>
+        <div class="about-stat">
+          <div class="num">∞</div>
+          <div class="label">Đêm thức làm sản phẩm</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">/ Dịch vụ</div>
+        <h2 class="section-title">Tôi giúp bạn làm gì?</h2>
+      </div>
+      <p class="section-desc">
+        Từ landing page một trang đến webapp phức tạp — tôi nhận trọn gói thiết kế, phát triển và triển khai. Một người làm, đỡ phải họp ba bên.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card">
+        <span class="service-num">/ 01</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Website &amp; Landing Page</h3>
+        <p>Thiết kế và phát triển website doanh nghiệp, portfolio, landing page cho chiến dịch marketing — responsive, tối ưu SEO và tốc độ.</p>
+        <ul>
+          <li>Custom Design</li>
+          <li>WordPress</li>
+          <li>Static Site</li>
+          <li>SEO-ready</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">/ 02</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        </div>
+        <h3>Blog &amp; Content Site</h3>
+        <p>Dựng blog cá nhân hoặc trang tin tức nội dung — quản lý dễ dàng, tối ưu công cụ tìm kiếm, sẵn sàng monetization nếu bạn muốn kiếm tiền từ content.</p>
+        <ul>
+          <li>WordPress</li>
+          <li>Headless CMS</li>
+          <li>Ghost</li>
+          <li>Newsletter</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">/ 03</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <h3>Web Application</h3>
+        <p>Xây dựng webapp với dashboard, auth, database, API — phù hợp cho SaaS, công cụ nội bộ doanh nghiệp, MVP startup hoặc nền tảng tự động hoá.</p>
+        <ul>
+          <li>React / Next.js</li>
+          <li>Database</li>
+          <li>Auth + API</li>
+          <li>Realtime</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">/ 04</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <h3>Mobile App</h3>
+        <p>Phát triển ứng dụng mobile cross-platform — một codebase, chạy mượt trên cả iOS và Android, sẵn sàng publish lên CH Play và App Store.</p>
+        <ul>
+          <li>React Native</li>
+          <li>Flutter</li>
+          <li>PWA</li>
+          <li>Publishing</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">/ 05</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Domain · Hosting · VPS</h3>
+        <p>Tư vấn và setup hạ tầng: chọn domain phù hợp, cấu hình hosting/VPS, SSL, DNS, email doanh nghiệp, backup tự động — bàn giao đầy đủ tài liệu.</p>
+        <ul>
+          <li>Domain Setup</li>
+          <li>VPS Config</li>
+          <li>SSL + DNS</li>
+          <li>Auto Backup</li>
+        </ul>
+      </article>
+
+      <article class="service-card">
+        <span class="service-num">/ 06</span>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <h3>Vibe Coding &amp; AI Build</h3>
+        <p>Kết hợp AI vào quy trình phát triển — build sản phẩm nhanh gấp đôi mà vẫn giữ chất lượng. Phù hợp cho founder cần MVP gấp, prototype, hoặc concept demo.</p>
+        <ul>
+          <li>AI-assisted</li>
+          <li>Rapid Prototype</li>
+          <li>MVP</li>
+          <li>Iteration</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">/ Kỹ năng</div>
+        <h2 class="section-title">Những thứ tôi dùng hằng ngày.</h2>
+      </div>
+      <p class="section-desc">
+        Không phải tôi biết tất cả — nhưng những thứ đưa vào đây là những thứ tôi thực sự dùng trong production và sẵn sàng giải thích chi tiết.
+      </p>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-head">
+        <div class="skill-cat-num">/ 01 — Design</div>
+        <div class="skill-cat-title">Thiết kế</div>
+        <div class="skill-cat-desc">UI/UX, branding, motion — tư duy hệ thống giúp sản phẩm scale dễ dàng.</div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="5" r="3"/><circle cx="12" cy="19" r="3"/><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/></svg>
+          <span>Figma</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="12" cy="12" r="4"/></svg>
+          <span>Photoshop</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 22 22 2 22 12 2"/></svg>
+          <span>Illustrator</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          <span>UI Systems</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-head">
+        <div class="skill-cat-num">/ 02 — Frontend</div>
+        <div class="skill-cat-title">Giao diện &amp; trải nghiệm</div>
+        <div class="skill-cat-desc">Biến design thành code thật — mượt, responsive, accessible và load nhanh.</div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+          <span>HTML / CSS</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span>JavaScript</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="11" ry="4.5"/><ellipse cx="12" cy="12" rx="11" ry="4.5" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="11" ry="4.5" transform="rotate(120 12 12)"/></svg>
+          <span>React</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 19h20L12 2z"/></svg>
+          <span>Next.js</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 8l10 6 10-6-10-6zM2 16l10 6 10-6"/></svg>
+          <span>Vue.js</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          <span>Tailwind</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>TypeScript</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Motion / GSAP</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-head">
+        <div class="skill-cat-num">/ 03 — CMS &amp; Backend</div>
+        <div class="skill-cat-title">Quản trị nội dung &amp; server</div>
+        <div class="skill-cat-desc">Từ WordPress dễ chỉnh đến API riêng — chọn đúng tool cho đúng bài toán.</div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14l4-8 4 8H8z"/></svg>
+          <span>WordPress</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+          <span>Elementor</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 14V8l6 4-6 4z"/></svg>
+          <span>Node.js</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          <span>PHP</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+          <span>MySQL</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/></svg>
+          <span>MongoDB</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 12h10"/></svg>
+          <span>Supabase</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><polygon points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Firebase</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-head">
+        <div class="skill-cat-num">/ 04 — Hosting &amp; Infra</div>
+        <div class="skill-cat-title">Triển khai &amp; vận hành</div>
+        <div class="skill-cat-desc">Domain, hosting chia sẻ, VPS tự quản lý — biết setup từ đầu tới khi bàn giao.</div>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span>VPS / Linux</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>cPanel</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M2 12l5-9 5 9-5 9-5-9zM12 12l5-9 5 9-5 9-5-9z"/></svg>
+          <span>Vercel</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+          <span>Netlify</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          <span>Docker</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>SSL / DNS</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9"/><polyline points="3 4 3 10 9 10"/></svg>
+          <span>Cloudflare</span>
+        </div>
+        <div class="tech-item">
+          <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <span>Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">/ Dự án nổi bật</div>
+        <h2 class="section-title">Một vài thứ tôi đã làm.</h2>
+      </div>
+      <p class="section-desc">
+        Mỗi dự án dưới đây là một bài toán khác nhau — và là cơ hội để tôi thử nghiệm cách tiếp cận mới. Bạn có thể tham khảo phong cách và phạm vi tôi làm.
+      </p>
+    </div>
+
+    <div class="projects-list">
+      <article class="project">
+        <div class="project-info">
+          <div class="project-num">/ DỰ ÁN 01</div>
+          <h3 class="project-title">Website doanh nghiệp + Blog tin tức tích hợp</h3>
+          <p class="project-desc">
+            Trọn gói thiết kế, code và triển khai cho một thương hiệu địa phương: trang chủ giới thiệu công ty, hệ thống blog tự quản lý qua WordPress, form liên hệ kết nối email doanh nghiệp. Deploy trên VPS riêng với SSL miễn phí.
+          </p>
+          <div class="project-stack">
+            <span>WordPress</span>
+            <span>Custom Theme</span>
+            <span>PHP</span>
+            <span>VPS</span>
+            <span>SSL</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Xem live
+            </a>
+            <a href="#" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Chi tiết
+            </a>
+          </div>
+        </div>
+        <div class="project-visual">
+          <div class="mock-browser">
+            <div class="mock-browser-bar"><span></span><span></span><span></span></div>
+            <div class="mock-content">
+              <div class="mock-line lg"></div>
+              <div class="mock-line md"></div>
+              <div class="mock-grid">
+                <div class="mock-cell"></div>
+                <div class="mock-cell"></div>
+                <div class="mock-cell"></div>
+              </div>
+              <div class="mock-line sm"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-info">
+          <div class="project-num">/ DỰ ÁN 02</div>
+          <h3 class="project-title">Webapp quản lý đơn hàng &amp; kho cho shop online</h3>
+          <p class="project-desc">
+            Dashboard nội bộ giúp shop online quản lý đơn hàng, theo dõi tồn kho, thống kê doanh thu theo ngày/tháng. Đăng nhập có phân quyền, thông báo real-time khi có đơn mới — thay thế hoàn toàn bảng tính Excel.
+          </p>
+          <div class="project-stack">
+            <span>Next.js</span>
+            <span>TypeScript</span>
+            <span>Supabase</span>
+            <span>Tailwind</span>
+            <span>Realtime</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Demo
+            </a>
+            <a href="#" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Case study
+            </a>
+          </div>
+        </div>
+        <div class="project-visual">
+          <div class="mock-browser">
+            <div class="mock-browser-bar"><span></span><span></span><span></span></div>
+            <div class="mock-content">
+              <div class="mock-grid">
+                <div class="mock-cell"></div>
+                <div class="mock-cell"></div>
+                <div class="mock-cell"></div>
+              </div>
+              <div class="mock-line lg"></div>
+              <div class="mock-line md"></div>
+              <div class="mock-line sm"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-info">
+          <div class="project-num">/ DỰ ÁN 03</div>
+          <h3 class="project-title">Blog cá nhân + Mobile App đồng bộ nội dung</h3>
+          <p class="project-desc">
+            Blog cá nhân chạy trên headless CMS, kèm app mobile React Native để đọc bài viết offline. Một codebase cho cả iOS và Android, đồng bộ tự động khi tác giả đăng bài — vibe coding với AI hỗ trợ rút ngắn timeline xuống còn 3 tuần.
+          </p>
+          <div class="project-stack">
+            <span>React Native</span>
+            <span>Headless CMS</span>
+            <span>Vercel</span>
+            <span>AI-assisted</span>
+            <span>Cross-platform</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Đọc thêm
+            </a>
+          </div>
+        </div>
+        <div class="project-visual">
+          <div class="mock-browser">
+            <div class="mock-browser-bar"><span></span><span></span><span></span></div>
+            <div class="mock-content">
+              <div class="mock-line lg"></div>
+              <div class="mock-grid">
+                <div class="mock-cell"></div>
+                <div class="mock-cell"></div>
+                <div class="mock-cell"></div>
+              </div>
+              <div class="mock-line md"></div>
+              <div class="mock-line sm"></div>
+              <div class="mock-line md"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="section-tag">/ Hành trình</div>
+        <h2 class="section-title">Từ một người tò mò đến dev biết design.</h2>
+      </div>
+      <p class="section-desc">
+        Mỗi giai đoạn dạy tôi một bài học khác nhau. Đây là con đường tôi đã đi qua, và những gì tôi học được dọc đường.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <div class="exp-item">
+        <div class="exp-date">
+          2024 — Hiện tại
+          <span class="duration">Đang làm</span>
+        </div>
+        <div>
+          <h3 class="exp-title">Dev Design Engineer (Freelance)</h3>
+          <div class="exp-company">Tự kinh doanh — TP.HCM</div>
+        </div>
+        <div>
+          <p class="exp-desc">
+            Nhận trọn gói thiết kế và phát triển sản phẩm cho khách hàng cá nhân và doanh nghiệp nhỏ. Tự lo từ pitch ý tưởng, làm thiết kế, code, deploy đến bàn giao — và hỗ trợ vận hành lâu dài.
+          </p>
+          <div class="exp-tags">
+            <span>Full-cycle Project</span><span>Client Work</span><span>VPS Management</span><span>Vibe Coding</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">
+          2023 — 2024
+          <span class="duration">~1 năm</span>
+        </div>
+        <div>
+          <h3 class="exp-title">Frontend / Web Developer</h3>
+          <div class="exp-company">Agency / Studio — TP.HCM</div>
+        </div>
+        <div>
+          <p class="exp-desc">
+            Làm việc trong môi trường agency với nhiều khách hàng khác nhau — học cách balance giữa yêu cầu thiết kế của art director, deadline khắt khe, và performance kỹ thuật. Quen với WordPress, Elementor và custom theme.
+          </p>
+          <div class="exp-tags">
+            <span>WordPress</span><span>Custom Theme</span><span>Multi-client</span><span>Deadline-driven</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">
+          2022 — 2023
+          <span class="duration">~1 năm</span>
+        </div>
+        <div>
+          <h3 class="exp-title">Junior Web Designer / Coder</h3>
+          <div class="exp-company">Công ty đầu tiên — TP.HCM</div>
+        </div>
+        <div>
+          <p class="exp-desc">
+            Bắt đầu với vai trò "ai cần gì cũng làm" — từ Photoshop banner đến HTML/CSS landing page. Đây là nơi tôi nhận ra mình thích cả hai phía: thiết kế và lập trình, và quyết định không chọn một mà làm cả hai.
+          </p>
+          <div class="exp-tags">
+            <span>HTML/CSS</span><span>Photoshop</span><span>UI Design</span><span>First Steps</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-date">
+          Trước 2022
+          <span class="duration">Tự học</span>
+        </div>
+        <div>
+          <h3 class="exp-title">Self-taught Developer</h3>
+          <div class="exp-company">YouTube · Udemy · Documentation</div>
+        </div>
+        <div>
+          <p class="exp-desc">
+            Bắt đầu từ những video YouTube đầu tiên về HTML/CSS, đến các khoá học online, đọc documentation và làm side project. Học theo cách "build trước, hiểu sau" — và cách này vẫn còn ảnh hưởng đến tôi đến tận bây giờ.
+          </p>
+          <div class="exp-tags">
+            <span>HTML/CSS</span><span>JavaScript</span><span>Side Projects</span><span>Curiosity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-card">
+      <div class="cta-grid"></div>
+      <div class="cta-inner">
+        <div class="cta-tag">
+          <span style="width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 12px #4ade80;"></span>
+          <span>Đang nhận dự án mới — Q2 / Q3 2026</span>
+        </div>
+        <h2>Có ý tưởng?<br/>Hãy nói chuyện với Adam.</h2>
+        <p>
+          Dù bạn cần một landing page nhỏ, một blog cá nhân, một webapp phức tạp hay chỉ cần tư vấn về hạ tầng — tôi luôn sẵn sàng cho một cuộc trò chuyện 30 phút không cam kết.
+        </p>
+        <div class="cta-actions">
+          <a href="mailto:hello@yourdomain.com" class="btn btn-primary">
+            Gửi email cho tôi
+            <span class="arrow">→</span>
+          </a>
+          <a href="#" class="btn btn-ghost">
+            Nhắn Zalo / Messenger
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-mark">A</div>
+          <span class="logo-text">Thiên Ân</span>
+        </a>
+        <p>Dev Design Engineer — thiết kế và xây dựng những sản phẩm số từ ý tưởng đến triển khai. Tại TP. Hồ Chí Minh, làm cho cả thế giới.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Điều hướng</h4>
+        <ul>
+          <li><a href="#about">Về tôi</a></li>
+          <li><a href="#services">Dịch vụ</a></li>
+          <li><a href="#skills">Kỹ năng</a></li>
+          <li><a href="#projects">Dự án</a></li>
+          <li><a href="#experience">Hành trình</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Liên hệ</h4>
+        <ul>
+          <li><a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a></li>
+          <li><a href="tel:+84xxxxxxxxx">+84 xxx xxx xxx</a></li>
+          <li><a href="#">TP. Hồ Chí Minh, VN</a></li>
+          <li><a href="#">Tải CV (PDF)</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Thiên Ân (Adam). Crafted with code &amp; caffeine.</p>
+      <div class="footer-social">
+        <a href="#" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.2 6.8 9.5.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.6-1.4-2.2-.3-4.5-1.1-4.5-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.5-.3s1.7.1 2.5.3c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.8v2.7c0 .3.2.6.7.5C19.1 20.2 22 16.4 22 12c0-5.5-4.5-10-10-10z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v7c4.7-.8 8.4-4.9 8.4-9.9z"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.5 2h-17C2.7 2 2 2.7 2 3.5v17c0 .8.7 1.5 1.5 1.5h17c.8 0 1.5-.7 1.5-1.5v-17c0-.8-.7-1.5-1.5-1.5zM8 19H5V9h3v10zM6.5 7.5C5.6 7.5 5 6.9 5 6s.6-1.5 1.5-1.5S8 5.1 8 6s-.6 1.5-1.5 1.5zM19 19h-3v-5c0-1-.4-1.5-1.2-1.5-.7 0-1.3.5-1.3 1.5v5h-3V9h3v1.3c.5-.8 1.4-1.4 2.5-1.4 1.8 0 3 1.3 3 3.4V19z"/></svg></a>
+        <a href="#" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 4l8 5 8-5"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-mark">THIÊN ÂN</div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
