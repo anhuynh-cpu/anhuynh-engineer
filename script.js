@@ -210,6 +210,16 @@ function appendBubble(text, type) {
   return bubble;
 }
 
+// Hàm tạo/lấy Session ID ngẫu nhiên để phân biệt khách truy cập
+function getChatSessionId() {
+  let sid = sessionStorage.getItem('chat_session_id');
+  if (!sid) {
+    sid = 'sess_' + Math.random().toString(36).substring(2, 9).toUpperCase();
+    sessionStorage.setItem('chat_session_id', sid);
+  }
+  return sid;
+}
+
 // Gọi Gemini API
 async function callGeminiAPI() {
   // Hiển thị trạng thái đang gõ
@@ -220,6 +230,7 @@ async function callGeminiAPI() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        sessionId: getChatSessionId(),
         contents: chatHistory,
         systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
         generationConfig: { temperature: 0.7, maxOutputTokens: 500 }

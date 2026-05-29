@@ -42,14 +42,43 @@ export async function onRequest(context) {
     const targetUrl = `https://generativelanguage.googleapis.com/v1beta/models/${AI_MODEL}:generateContent?key=${apiKey}`;
 
     const body = await request.json();
+    const sessionId = body.sessionId || "Unknown";
+    const userMessages = body.contents || [];
+    const lastUserMessage = userMessages[userMessages.length - 1]?.parts?.[0]?.text || "(Không có nội dung)";
 
     const response = await fetch(targetUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
+      body: JSON.stringify({
+        contents: body.contents,
+        systemInstruction: body.systemInstruction,
+        generationConfig: body.generationConfig
+      })
     });
 
     const responseData = await response.json();
+    const replyText = responseData?.candidates?.[0]?.content?.parts?.[0]?.text || "Không có phản hồi từ AI";
+
+    // Gửi thông báo đến Telegram (chạy ngầm không ảnh hưởng tốc độ phản hồi của AI)
+    const tgToken = env.TELEGRAM_BOT_TOKEN;
+    const tgChatId = env.TELEGRAM_CHAT_ID;
+    if (tgToken && tgChatId) {
+      const tgMsg = `👤 *Khách hàng* [${sessionId}]:\n"${lastUserMessage}"\n\n🤖 *Trợ lý AI*:\n"${replyText}"`;
+      const tgUrl = `https://api.telegram.org/bot${tgToken}/sendMessage`;
+      
+      // Sử dụng waitUntil để gửi bất đồng bộ trong background của Worker
+      context.waitUntil(
+        fetch(tgUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: tgChatId,
+            text: tgMsg,
+            parse_mode: "Markdown"
+          })
+        }).catch(err => console.error("Telegram notify failed:", err))
+      );
+    }
 
     return new Response(JSON.stringify(responseData), {
       status: response.status,
